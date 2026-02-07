@@ -1,0 +1,222 @@
+================================================================================
+CHANGELOG CHEAT SHEET - Automated Changelog Generator v1.0.0
+================================================================================
+
+QUICK START
+-----------
+1. Navigate to any git repository
+2. Run: python changelog.py generate
+3. Check CHANGELOG.md - done!
+
+================================================================================
+COMMON COMMANDS
+--------------------------------------------------------------------------------
+
+Generate Changelog:
+  python changelog.py generate                  # Current directory
+  python changelog.py generate /path/to/repo    # Specific repo
+  python changelog.py generate -o CHANGES.md    # Custom filename
+  python changelog.py generate --stdout         # Print to screen
+
+Preview (no file written):
+  python changelog.py preview                   # Markdown preview
+  python changelog.py preview --format text     # Plain text preview
+
+Validate Commit Messages:
+  python changelog.py validate                  # Check compliance
+  python changelog.py validate --json           # JSON output
+
+Show Statistics:
+  python changelog.py stats                     # Visual stats
+  python changelog.py stats --json              # JSON stats
+
+================================================================================
+OUTPUT FORMATS
+--------------------------------------------------------------------------------
+
+Markdown (default):
+  python changelog.py generate --format markdown
+
+Plain Text:
+  python changelog.py generate --format text
+
+JSON:
+  python changelog.py generate --format json
+
+================================================================================
+CLI FLAGS & OPTIONS
+--------------------------------------------------------------------------------
+
+Global Options:
+  -h, --help         Show help message
+  --version          Show version (1.0.0)
+
+Generate Options:
+  -o, --output FILE  Output filename (default: CHANGELOG.md)
+  --format FORMAT    markdown, text, or json
+  --group-by MODE    auto, tags, or dates
+  --no-hash          Omit commit hashes
+  --with-author      Include author names
+  --with-date        Include commit dates
+  --since DATE       Start date (e.g., 2026-01-01)
+  --until DATE       End date
+  --author NAME      Filter by author
+  --limit N          Max commits (0 = all)
+  --header TEXT      Custom header
+  --reverse          Reverse version order
+  --config FILE      Path to .changelogrc
+  --stdout           Print to stdout
+
+Preview Options:
+  --format FORMAT    markdown, text, or json
+  --limit N          Max commits (default: 50)
+
+Validate Options:
+  --limit N          Max commits to check
+  --json             JSON output
+
+Stats Options:
+  --limit N          Max commits to analyze
+  --json             JSON output
+
+================================================================================
+PYTHON API
+--------------------------------------------------------------------------------
+
+Import:
+  from changelog import ChangeLog
+
+Basic Usage:
+  cl = ChangeLog(repo_path=".")
+  output = cl.generate()
+
+Write to File:
+  cl.generate(output_file="CHANGELOG.md")
+
+With Config:
+  cl = ChangeLog(repo_path=".", config={
+      "output_format": "markdown",
+      "include_author": True,
+      "limit": 100,
+  })
+  output = cl.generate()
+
+Validate Commits:
+  results = cl.validate_commits()
+  print(f"Compliance: {results['compliance_pct']}%")
+
+Get Stats:
+  stats = cl.get_stats()
+  print(f"Total: {stats['total_commits']} commits")
+
+Config File:
+  cl = ChangeLog(repo_path=".", config_file=".changelogrc")
+
+================================================================================
+COMMIT CATEGORIES (CONVENTIONAL COMMITS)
+--------------------------------------------------------------------------------
+
+Prefix     -> Category       | Example
+-----------|-----------------|------------------------------------------
+feat:      -> Added          | feat: add search functionality
+fix:       -> Fixed          | fix: resolve null pointer error
+docs:      -> Documentation  | docs: update API reference
+refactor:  -> Changed        | refactor: extract validation logic
+test:      -> Testing        | test: add integration tests
+build:     -> Build          | build: update CI pipeline
+security:  -> Security       | security: patch XSS vulnerability
+deprecate: -> Deprecated     | deprecate: mark old API
+remove:    -> Removed        | remove: drop legacy endpoints
+chore:     -> Other          | chore: update dependencies
+
+With Scope:
+  feat(cli): add --verbose flag
+  fix(parser): handle empty input
+
+Breaking Change:
+  feat!: remove deprecated login API
+
+================================================================================
+CONFIG FILE (.changelogrc)
+--------------------------------------------------------------------------------
+
+Location: Project root directory
+Format: JSON
+
+Example:
+  {
+    "output_file": "CHANGELOG.md",
+    "output_format": "markdown",
+    "include_hash": true,
+    "include_author": false,
+    "exclude_patterns": ["^Merge", "^WIP"],
+    "limit": 0
+  }
+
+Usage:
+  python changelog.py generate --config .changelogrc
+
+================================================================================
+BATCH GENERATION (All Repos)
+--------------------------------------------------------------------------------
+
+PowerShell:
+  Get-ChildItem -Path "C:\AutoProjects" -Directory | ForEach-Object {
+    if (Test-Path "$($_.FullName)\.git") {
+      python changelog.py generate $_.FullName
+    }
+  }
+
+Bash:
+  for dir in AutoProjects/*/; do
+    [ -d "$dir/.git" ] && python changelog.py generate "$dir"
+  done
+
+================================================================================
+VALIDATION GRADES
+--------------------------------------------------------------------------------
+
+  90%+ = A - Excellent
+  75%+ = B - Good
+  50%+ = C - Fair
+  25%+ = D - Poor
+  <25% = F - Non-compliant
+
+================================================================================
+TROUBLESHOOTING
+--------------------------------------------------------------------------------
+
+Error: "Git is not installed or not in PATH"
+  -> Install git: https://git-scm.com/downloads
+  -> Verify: git --version
+
+Error: "Not a git repository"
+  -> Run from inside a git repo
+  -> Or specify path: python changelog.py generate /path/to/repo
+
+Empty changelog:
+  -> Check repo has commits: git log --oneline
+  -> Try: python changelog.py generate --limit 0
+
+Unicode errors (Windows):
+  -> Run: chcp 65001
+  -> Then: python changelog.py generate
+
+================================================================================
+RESOURCES
+--------------------------------------------------------------------------------
+
+Documentation:   AutoProjects/ChangeLog/README.md
+Examples:        AutoProjects/ChangeLog/EXAMPLES.md
+Integration:     AutoProjects/ChangeLog/INTEGRATION_PLAN.md
+GitHub:          https://github.com/DonkRonk17/ChangeLog
+Issues:          https://github.com/DonkRonk17/ChangeLog/issues
+
+Standards:
+  Keep a Changelog:    https://keepachangelog.com
+  Conventional Commits: https://conventionalcommits.org
+  Semantic Versioning:  https://semver.org
+
+================================================================================
+Built by ATLAS (Team Brain) for Logan Smith / Metaphy LLC
+================================================================================

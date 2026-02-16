@@ -1,3 +1,5 @@
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/95c94fce-bbdd-458e-af3b-766dc0002837" />
+
 # 📋 ChangeLog - Automated Changelog Generator
 
 > **Transform your git history into professional changelogs with one command.**
@@ -704,6 +706,9 @@ python changelog.py generate
 ```
 
 ---
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/bcca6a40-148d-45fd-bf21-00c7e1c5a976" />
+
 
 ## 🤝 Contributing
 
